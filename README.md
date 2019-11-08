@@ -1,8 +1,8 @@
-#Game Start Screen Menu
+# Game Start Screen Menu
 A generic intro and start menu I'm just making for fun.
 It could be incorporated into an actual project one day.
 
-##Planned Features:
+## Planned Features:
 * Company Splash Screen
 * Menu which consists of:
  1. Start
