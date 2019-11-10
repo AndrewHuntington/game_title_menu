@@ -5,14 +5,14 @@ It could be incorporated into an actual project one day.
 ## Planned Features:
 * Company Splash Screen
 * Menu which consists of:
- - Start
- - Options
- - Exit
+    - Start
+    - Options
+    - Exit
 * Fully working Options section
- - Sound Test
- - Button Config
- - Volume Control
- - Resolution Settings
+    - Sound Test
+    - Button Config
+    - Volume Control
+    - Resolution Settings
 * Animated Cursor
 * Blinking Text When Selected by Cursor
 * BGM
