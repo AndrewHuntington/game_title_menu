@@ -20,6 +20,11 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MenuSelect();
+    }
+
+    private void MenuSelect()
+    {
         grabInputValue = Vector2.zero;
         grabInputValue.y = Input.GetAxisRaw("Vertical");
         if (Input.GetButtonDown("Vertical"))
@@ -29,6 +34,17 @@ public class MenuController : MonoBehaviour
                 previousCursorState = CursorObjects[cursorPosition];
 
                 cursorPosition = Mathf.Clamp(cursorPosition + 1, 0, CursorObjects.Length - 1);
+                currentCursorState = CursorObjects[cursorPosition];
+
+                currentCursorState.SetActive(true);
+                previousCursorState.SetActive(false);
+            }
+
+            if (grabInputValue.y > 0 && cursorPosition > 0)
+            {
+                previousCursorState = CursorObjects[cursorPosition];
+
+                cursorPosition = Mathf.Clamp(cursorPosition - 1, 0, CursorObjects.Length - 1);
                 currentCursorState = CursorObjects[cursorPosition];
 
                 currentCursorState.SetActive(true);
