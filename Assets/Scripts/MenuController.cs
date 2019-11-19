@@ -7,7 +7,8 @@ public class MenuController : MonoBehaviour
 {
     private int cursorPosition = 0;
     [SerializeField] GameObject[] CursorObjects;
-    [Tooltip("Sound when moving the cursor")] [SerializeField] AudioClip blipSFX;
+    [Tooltip("Sound when moving the cursor between selections")] [SerializeField] AudioClip blipSFX;
+    [Tooltip("Sound when trying to move the cursor out-of-bounds")] [SerializeField] AudioClip deadZoneSFX;
     GameObject currentCursorState;
     GameObject previousCursorState;
     Vector2 grabInputValue;
@@ -32,10 +33,10 @@ public class MenuController : MonoBehaviour
         grabInputValue.y = Input.GetAxisRaw("Vertical");
         if (Input.GetButtonDown("Vertical"))
         {
-            audioSource.PlayOneShot(blipSFX);
 
             if (grabInputValue.y < 0 && cursorPosition < CursorObjects.Length - 1)
             {
+                audioSource.PlayOneShot(blipSFX);
                 previousCursorState = CursorObjects[cursorPosition];
 
                 cursorPosition = Mathf.Clamp(cursorPosition + 1, 0, CursorObjects.Length - 1);
@@ -44,9 +45,9 @@ public class MenuController : MonoBehaviour
                 currentCursorState.SetActive(true);
                 previousCursorState.SetActive(false);
             }
-
-            if (grabInputValue.y > 0 && cursorPosition > 0)
+            else if (grabInputValue.y > 0 && cursorPosition > 0)
             {
+                audioSource.PlayOneShot(blipSFX);
                 previousCursorState = CursorObjects[cursorPosition];
 
                 cursorPosition = Mathf.Clamp(cursorPosition - 1, 0, CursorObjects.Length - 1);
@@ -54,6 +55,10 @@ public class MenuController : MonoBehaviour
 
                 currentCursorState.SetActive(true);
                 previousCursorState.SetActive(false);
+            }
+            else
+            {
+                audioSource.PlayOneShot(deadZoneSFX);
             }
         }
     }
