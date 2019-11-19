@@ -13,6 +13,7 @@ public class MenuController : MonoBehaviour
     GameObject previousCursorState;
     Vector2 grabInputValue;
     AudioSource audioSource;
+    bool canControl = true;
 
     // Start is called before the first frame update
     void Start()
@@ -24,41 +25,45 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MenuSelect();
+        if (Input.GetButtonDown("Vertical") && canControl)
+        {
+            MenuSelect();
+        }
     }
 
     private void MenuSelect()
     {
         grabInputValue = Vector2.zero;
         grabInputValue.y = Input.GetAxisRaw("Vertical");
-        if (Input.GetButtonDown("Vertical"))
+
+        if (grabInputValue.y < 0 && cursorPosition < CursorObjects.Length - 1)
         {
+            audioSource.PlayOneShot(blipSFX);
+            previousCursorState = CursorObjects[cursorPosition];
 
-            if (grabInputValue.y < 0 && cursorPosition < CursorObjects.Length - 1)
+            cursorPosition = Mathf.Clamp(cursorPosition + 1, 0, CursorObjects.Length - 1);
+            currentCursorState = CursorObjects[cursorPosition];
+
+            currentCursorState.SetActive(true);
+            previousCursorState.SetActive(false);
+        }
+        else if (grabInputValue.y > 0 && cursorPosition > 0)
+        {
+            audioSource.PlayOneShot(blipSFX);
+            previousCursorState = CursorObjects[cursorPosition];
+
+            cursorPosition = Mathf.Clamp(cursorPosition - 1, 0, CursorObjects.Length - 1);
+            currentCursorState = CursorObjects[cursorPosition];
+
+            currentCursorState.SetActive(true);
+            previousCursorState.SetActive(false);
+        }
+        else
+        {
+            audioSource.PlayOneShot(deadZoneSFX);
+            while (Input.GetButtonUp("Vertical"))
             {
-                audioSource.PlayOneShot(blipSFX);
-                previousCursorState = CursorObjects[cursorPosition];
-
-                cursorPosition = Mathf.Clamp(cursorPosition + 1, 0, CursorObjects.Length - 1);
-                currentCursorState = CursorObjects[cursorPosition];
-
-                currentCursorState.SetActive(true);
-                previousCursorState.SetActive(false);
-            }
-            else if (grabInputValue.y > 0 && cursorPosition > 0)
-            {
-                audioSource.PlayOneShot(blipSFX);
-                previousCursorState = CursorObjects[cursorPosition];
-
-                cursorPosition = Mathf.Clamp(cursorPosition - 1, 0, CursorObjects.Length - 1);
-                currentCursorState = CursorObjects[cursorPosition];
-
-                currentCursorState.SetActive(true);
-                previousCursorState.SetActive(false);
-            }
-            else
-            {
-                audioSource.PlayOneShot(deadZoneSFX);
+                canControl = false;
             }
         }
     }
