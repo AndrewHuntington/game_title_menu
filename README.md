@@ -16,4 +16,4 @@ It could be incorporated into an actual project one day.
 * Animated Cursor
 * Blinking Text When Selected by Cursor
 * BGM
-* SE (Added to menu screen, not to splash screen yet.)
+* ~~SE (Added to menu screen, not to splash screen yet.)~~
