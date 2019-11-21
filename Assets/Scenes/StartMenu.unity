@@ -1394,6 +1394,7 @@ MonoBehaviour:
   - {fileID: 1317378376}
   - {fileID: 546414395}
   blipSFX: {fileID: 8300000, guid: c0673f55957c4cc488a0645ce87d5dc0, type: 3}
+  deadZoneSFX: {fileID: 8300000, guid: c5330d600c393214c954bd149d37eda4, type: 3}
 --- !u!4 &2074202276
 Transform:
   m_ObjectHideFlags: 0

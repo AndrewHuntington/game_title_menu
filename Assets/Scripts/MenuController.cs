@@ -60,11 +60,9 @@ public class MenuController : MonoBehaviour
         }
         else
         {
+            // TODO: Figure out a way to stop this sound from playing if someone is already
+            //       holding down one of the vertical buttons...
             audioSource.PlayOneShot(deadZoneSFX);
-            while (Input.GetButtonUp("Vertical"))
-            {
-                canControl = false;
-            }
         }
     }
 }
